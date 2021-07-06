@@ -16,11 +16,32 @@
     <a href="./index.html">Regresar</a>
     <hr>
     <h3>Crear Categoria</h3>
-    <form  method="post" id="formCategory">
-      <input type="text" name="name" placeholder="Nombre de la Categoria">
-      <input type="text" name="description" placeholder="Description de la Categoria">
+    <form method="post" id="formCategory">
+      <input type="text" name="name" id="name" placeholder="Nombre de la Categoria">
+      <input type="text" name="description" id="description" placeholder="Description de la Categoria">
       <input type="submit">
     </form>
     <hr>
+    <script>
+      $('#formCategory').submit(function(event){
+        let name = $('#name').val()
+        let desc = $('#description').val()
+        console.log('Hola', name, desc);
+        $.ajax({
+          type: 'POST',
+          url: '/CategoryRestService/Add',
+          data: {name: name, description:desc},
+          success: function(data){
+            console.log(data)
+            alert('Categoria guardada')
+          },
+          error: function(err){
+            console.log(err)
+            alert('Algo fallo')
+          }
+        })
+        event.preventDefault();
+      })
+    </script>
   </body>
 </html>
